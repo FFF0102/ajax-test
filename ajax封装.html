@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./ajax.js"></script>
+    <title>AJAX封装</title>
+    <style>
+        th,td{
+            border: 1px solid pink;
+            height: 50px;
+            width: 100px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <button>获取数据</button>
+    <div id="box">
+
+    </div>
+    <table>
+        <thead>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</body>
+<script>
+    //获取节点
+    const btn = document.getElementsByTagName("button")[0];
+    const box = document.getElementById("box");
+    const tbody = document.getElementsByTagName("tbody")[0];
+    
+    btn.onclick = function(){
+        ajax("get",'user.json','',function(data){
+            // var datajson = JSON.parse(data);
+            // box.innerHTML += `姓名：${datajson.name},年龄：${datajson.age}`;
+            console.log(data);
+        })
+    }
+</script>
+</html>

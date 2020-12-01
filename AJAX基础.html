@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX基础</title>
+    <style>
+        th,td{
+            border: 1px solid pink;
+            height: 50px;
+            width: 100px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <button>获取数据</button>
+    <div id="box">
+
+    </div>
+    <table>
+        <thead>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</body>
+<script>
+    //获取节点
+    const btn = document.getElementsByTagName("button")[0];
+    const box = document.getElementById("box");
+    const tbody = document.getElementsByTagName("tbody")[0];
+    //点击事件
+    btn.onclick = function(){
+        //1.打开浏览器，发送请求
+        //创建XMLHttpRequest的对象，对象可以发送Ajax请求
+        var xhr = new XMLHttpRequest();
+
+        //2.浏览器输入地址
+        //open      请求方式 / 请求地址 / 是同步还是异步
+        xhr.open("GET",'userList.json',true);
+
+        //3.回车
+        //提交请求
+        xhr.send();
+
+        //4.等待服务器返回数据，并且做接收和处理
+        xhr.onreadystatechange = function(){
+            //readyState    服务器的返回状态码
+            /*
+                表示状态 0 1 2 3 4 
+                0   :还没有调用send
+                1   :载入，已经调用send，正在发送请求
+                2   :载入完成，send已经执行完成，已经接收全部的响应内容
+                3   :交互，正在解析响应内容
+                4   :完成，响应内容已经解析完成，客户端可以使用
+            */
+           if(xhr.readyState === 4){
+               //5.将返回的数据(字符串)保存到变量
+               var data = xhr.responseText;
+               //6.需要将字符串转为json对象
+               //JSON.parse     可以将json字符串转为json对象
+               //JSON.stringify     将json对象转json字符串
+               var datajson = JSON.parse(data);
+               //7.将对象渲染到节点
+               //box.innerHTML = datajson[0].name;
+                tbody.innerHTML = '';
+                datajson.forEach(function(item, index){
+                    // box.innerHTML += `学号：${item.id}，姓名：${item.name}，年龄${item.age}<br />`;
+                    tbody.innerHTML += `<tr>
+                        <td>${item.id}</td>
+                        <td>${item.name}</td>
+                        <td>${item.age}</td>
+                        </tr>`
+                })
+           }
+        }
+    }
+    /*
+        ajax流程
+        1.创建  XMLHttpRequest对象
+        2.打开请求地址      open
+        3.发送请求          send
+        4.绑定      onreadystatechange事件，等待服务器返回数据
+        5.将返回的数据转为json对象
+        6.渲染到页面上
+    */
+</script>
+</html>

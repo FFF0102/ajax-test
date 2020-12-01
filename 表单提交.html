@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单提交</title>
+</head>
+<body>
+    <!-- 表单提交给后台
+    注意：
+    1.想要提交给后台的数据，必须写name属性
+    2.表单提交方式有两种        
+        get：参数是跟在url后面，并且和主路径之间有一个 问号？
+        post：参数是使用头部包传输给后台的，没有跟在url的后面
+    3.目前对于需要加密传输的内容，那么我们采用https协议
+    4.https协议就是在http的基础上添加了ssl加密层处理
+    5.对于加密处理，除了使用https之外，也可以在前端代码中手动添加 MD5 加密
+    区别：
+    1.get方式传输的数据不安全，是跟在url的后面的
+    2.get方式的传输数据有大小限制
+    3.post方式相对get是安全的， post方式提交的表单，内容没有加密
+    -->
+    <form action="http://www.163.com" method="POST">
+        用户名：<input type="text" id="username" name="user">
+        密码：<input type="text" id="password" name="pwd">
+        <input type="submit" value="提交">
+    </form>
+</body>
+</html>
